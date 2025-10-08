@@ -18,12 +18,12 @@ ENV SHIPIT_VERSION=v0.39.0
 RUN git config --global user.email "saksham@aequify.com"
 RUN git config --global user.name "Saksham Saini"
 
-RUN gem install rails -v 6.1 --no-document
+RUN gem install rails -v 6.1.7 --no-document
 RUN gem install minitest --no-document
 
 WORKDIR /usr/src
 
-RUN rails _6.1_ new shipit \
+RUN rails _6.1.7_ new shipit \
   --skip-action-cable --skip-turbolinks --skip-action-mailer --skip-active-storage \
   -m https://raw.githubusercontent.com/Shopify/shipit-engine/${SHIPIT_VERSION}/template.rb
 
