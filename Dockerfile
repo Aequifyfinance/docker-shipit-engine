@@ -51,8 +51,9 @@ RUN sed -i '/sqlite3/d' Gemfile
 # Install bundle dependencies
 RUN bundle install --jobs 4
 
-# Copy app configs
-COPY config/ config/
+# Copy app configs (excluding secrets.yml which will be mounted at runtime)
+COPY config/database.yml config/puma.rb config/
+RUN touch config/secrets.yml
 
 # Set Rails production environment variables
 ENV RAILS_ENV=production \
