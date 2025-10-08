@@ -46,8 +46,7 @@ RUN rails _7.1.5_ new shipit \
 WORKDIR /usr/src/shipit
 
 # 🔧 Clean up the Gemfile before we bundle
-RUN sed -i '/sqlite3/d' Gemfile && \
-    echo 'gem "pg", "~> 1.5"' >> Gemfile
+RUN sed -i '/sqlite3/d' Gemfile
 
 # Install bundle dependencies
 RUN bundle install --jobs 4
