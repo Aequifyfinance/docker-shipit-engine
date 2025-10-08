@@ -23,7 +23,10 @@ services:
     environment:
       - DATABASE_URL=postgres://postgres:@postgres:5432
       - REDIS_URL=redis://redis:6379
-      - SECRET_KEY_BASE=XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+      - SECRET_KEY_BASE=$SECRET_KEY_BASE
+      - WEBHOOK_SECRET=$WEBHOOK_SECRET
+      - PRIVATE_KEY=$PRIVATE_KEY
+      - OAUTH_SECRET=$OAUTH_SECRET
     restart: on-failure
     volumes:
       - ${PWD}/config/secrets.yml:/usr/src/shipit/config/secrets.yml:ro
@@ -37,7 +40,10 @@ services:
     environment:
       - DATABASE_URL=postgres://postgres:@postgres:5432
       - REDIS_URL=redis://redis:6379
-      - SECRET_KEY_BASE=XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+      - SECRET_KEY_BASE=$SECRET_KEY_BASE
+      - WEBHOOK_SECRET=$WEBHOOK_SECRET
+      - PRIVATE_KEY=$PRIVATE_KEY
+      - OAUTH_SECRET=$OAUTH_SECRET
     restart: on-failure
     volumes:
       - ${PWD}/config/secrets.yml:/usr/src/shipit/config/secrets.yml:ro

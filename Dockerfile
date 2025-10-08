@@ -1,4 +1,4 @@
-FROM ruby:2.6.4-alpine3.10@sha256:f3eeb2b71ae7c004ca57ddb12618fde07dece33e6a0f0a50b53f03b83be76174
+FROM ruby:3.1-alpine
 
 RUN apk add --no-cache --update \
     git \
@@ -14,8 +14,8 @@ RUN apk add --no-cache --update \
 ENV CI=true
 ENV SHIPIT_VERSION=v0.28.1
 
-RUN git config --global user.email "you@example.com"
-RUN git config --global user.name "Your Name"
+RUN git config --global user.email "saksham@aequify.com"
+RUN git config --global user.name "Saksham Saini"
 
 RUN gem install rails -v 5.2 --no-document
 RUN gem install minitest --no-document
