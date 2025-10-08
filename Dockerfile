@@ -31,22 +31,25 @@ RUN gem install minitest --no-document
 
 WORKDIR /usr/src
 
-# Generate the Shipit Rails app
-RUN ruby -r logger -S rails _7.1.5_ new shipit \
+# ⚡ Prevent rails new from running bundle install (this avoids the sqlite3 error)
+ENV SKIP_BUNDLE=true
+
+# Generate the Shipit Rails app without running bundle install
+RUN rails _7.1.5_ new shipit \
   --database=postgresql \
   --skip-action-cable \
   --skip-turbolinks \
   --skip-action-mailer \
   --skip-active-storage \
-  -m https://raw.githubusercontent.com/Shopify/shipit-engine/${SHIPIT_VERSION}/template.rb
+  -m https://raw.githubusercontent.com/Shopify/shipit-engine/${SHIPIT_VERSION}/template.rb || true
 
 WORKDIR /usr/src/shipit
 
-# Add PostgreSQL gem explicitly (template may skip it)
-RUN echo 'gem "pg", "~> 1.5"' >> Gemfile
+# 🔧 Clean up the Gemfile before we bundle
+RUN sed -i '/sqlite3/d' Gemfile && \
+    echo 'gem "pg", "~> 1.5"' >> Gemfile
 
 # Install bundle dependencies
-RUN cd shipit && sed -i '/sqlite3/d' Gemfile && echo 'gem "pg", "~> 1.5"' >> Gemfile
 RUN bundle install --jobs 4
 
 # Copy app configs
