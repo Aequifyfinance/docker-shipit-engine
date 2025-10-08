@@ -46,6 +46,7 @@ WORKDIR /usr/src/shipit
 RUN echo 'gem "pg", "~> 1.5"' >> Gemfile
 
 # Install bundle dependencies
+RUN cd shipit && sed -i '/sqlite3/d' Gemfile && echo 'gem "pg", "~> 1.5"' >> Gemfile
 RUN bundle install --jobs 4
 
 # Copy app configs
