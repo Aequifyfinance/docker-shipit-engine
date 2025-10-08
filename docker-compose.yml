@@ -29,7 +29,7 @@ services:
       - OAUTH_SECRET=$OAUTH_SECRET
     restart: on-failure
     volumes:
-      - ${PWD}/config/secrets.yml:/usr/src/shipit/config/secrets.yml:ro
+      - config/secrets.yml:/usr/src/shipit/config/secrets.yml:ro
     ports:
       - 3000:3000
   worker:
@@ -46,5 +46,5 @@ services:
       - OAUTH_SECRET=$OAUTH_SECRET
     restart: on-failure
     volumes:
-      - ${PWD}/config/secrets.yml:/usr/src/shipit/config/secrets.yml:ro
+      - config/secrets.yml:/usr/src/shipit/config/secrets.yml:ro
     command: bundle exec sidekiq -C config/sidekiq.yml
