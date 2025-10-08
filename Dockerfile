@@ -6,6 +6,7 @@ RUN apk add --no-cache --update \
     postgresql-client \
     tzdata \
     yarn \
+    shared-mime-info \
     && apk add --no-cache --virtual .build-deps \
       build-base \
       postgresql-dev \
