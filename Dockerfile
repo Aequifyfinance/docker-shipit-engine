@@ -33,7 +33,11 @@ WORKDIR /usr/src
 
 # Generate the Shipit Rails app
 RUN ruby -r logger -S rails _7.1.5_ new shipit \
-  --skip-action-cable --skip-turbolinks --skip-action-mailer --skip-active-storage \
+  --database=postgresql \
+  --skip-action-cable \
+  --skip-turbolinks \
+  --skip-action-mailer \
+  --skip-active-storage \
   -m https://raw.githubusercontent.com/Shopify/shipit-engine/${SHIPIT_VERSION}/template.rb
 
 WORKDIR /usr/src/shipit
