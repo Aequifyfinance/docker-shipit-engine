@@ -13,7 +13,7 @@ RUN apk add --no-cache --update \
       sqlite-dev
 
 ENV CI=true
-ENV SHIPIT_VERSION=v0.28.1
+ENV SHIPIT_VERSION=v0.39.0
 
 RUN git config --global user.email "saksham@aequify.com"
 RUN git config --global user.name "Saksham Saini"
