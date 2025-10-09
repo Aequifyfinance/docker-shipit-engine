@@ -21,7 +21,7 @@ RUN apt-get update -qq && \
 ENV CI=true
 ENV SHIPIT_VERSION=v0.39.0
 
-# Configure Git identity (for rails new template)
+# Configure Git
 RUN git config --global user.email "saksham@aequify.com"
 RUN git config --global user.name "Saksham Saini"
 
@@ -31,10 +31,10 @@ RUN gem install minitest --no-document
 
 WORKDIR /usr/src
 
-# ⚡ Prevent rails new from running bundle install (this avoids the sqlite3 error)
+# Prevent rails new from auto bundle install
 ENV SKIP_BUNDLE=true
 
-# Generate the Shipit Rails app without running bundle install
+# Generate Shipit app without running bundle install
 RUN rails _7.1.5_ new shipit \
   --database=postgresql \
   --skip-action-cable \
@@ -45,26 +45,26 @@ RUN rails _7.1.5_ new shipit \
 
 WORKDIR /usr/src/shipit
 
-# 🔧 Clean up the Gemfile before we bundle
+# Remove sqlite3 from Gemfile
 RUN sed -i '/sqlite3/d' Gemfile
 
 # Install bundle dependencies
 RUN bundle install --jobs 4
 
-# Copy app configs (excluding secrets.yml which will be mounted at runtime)
-COPY config/database.yml config/puma.rb config/secrets.yml config/ 
+# Copy config files (secrets mounted at runtime)
+COPY config/database.yml config/puma.rb config/secrets.yml config/
 
 # Set Rails production environment variables
 ENV RAILS_ENV=production \
     RAILS_LOG_TO_STDOUT=enabled \
     RAILS_SERVE_STATIC_FILES=enabled
 
-# Add entrypoint
+# Copy entrypoint
 COPY entrypoint.sh .
+RUN chmod +x entrypoint.sh
 ENTRYPOINT ["./entrypoint.sh"]
 
 # Precompile assets
 RUN bundle exec rake assets:precompile
 
 EXPOSE 3000
-CMD ["bundle", "exec", "puma", "-C", "config/puma.rb"]

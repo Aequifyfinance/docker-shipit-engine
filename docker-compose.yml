@@ -6,42 +6,45 @@ services:
       PGDATA: /var/lib/postgresql/data/pgdata
       POSTGRES_PASSWORD: postgres
     ports:
-      - 5432
+      - "5432:5432"
     volumes:
       - .compose-data/postgresql:/var/lib/postgresql/data/pgdata
+
   redis:
-    command: redis-server --appendonly yes
     image: redis:5-alpine
+    command: redis-server --appendonly yes
     ports:
-      - 6379
+      - "6379:6379"
     volumes:
       - .compose-data/redis:/data
+
   app:
     build: .
     depends_on:
       - postgres
       - redis
     environment:
-      - DATABASE_URL=postgres://postgres:postgres@postgres:5432
-      - REDIS_URL=redis://redis:6379
-      - SECRET_KEY_BASE=$SECRET_KEY_BASE
-      - WEBHOOK_SECRET=$WEBHOOK_SECRET
-      - PRIVATE_KEY=$PRIVATE_KEY
-      - OAUTH_SECRET=$OAUTH_SECRET
+      DATABASE_URL: postgres://postgres:postgres@postgres:5432
+      REDIS_URL: redis://redis:6379
+      SECRET_KEY_BASE: $SECRET_KEY_BASE
+      WEBHOOK_SECRET: $WEBHOOK_SECRET
+      PRIVATE_KEY: $PRIVATE_KEY
+      OAUTH_SECRET: $OAUTH_SECRET
     restart: on-failure
     ports:
-      - 3000:3000
+      - "3000:3000"
+
   worker:
     build: .
     depends_on:
       - postgres
       - redis
     environment:
-      - DATABASE_URL=postgres://postgres:postgres@postgres:5432
-      - REDIS_URL=redis://redis:6379
-      - SECRET_KEY_BASE=$SECRET_KEY_BASE
-      - WEBHOOK_SECRET=$WEBHOOK_SECRET
-      - PRIVATE_KEY=$PRIVATE_KEY
-      - OAUTH_SECRET=$OAUTH_SECRET
+      DATABASE_URL: postgres://postgres:postgres@postgres:5432
+      REDIS_URL: redis://redis:6379
+      SECRET_KEY_BASE: $SECRET_KEY_BASE
+      WEBHOOK_SECRET: $WEBHOOK_SECRET
+      PRIVATE_KEY: $PRIVATE_KEY
+      OAUTH_SECRET: $OAUTH_SECRET
     restart: on-failure
     command: bundle exec sidekiq -C config/sidekiq.yml
