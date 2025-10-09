@@ -41,7 +41,7 @@ RUN rails _7.1.5_ new shipit \
   --skip-turbolinks \
   --skip-action-mailer \
   --skip-active-storage \
-  -m https://raw.githubusercontent.com/Shopify/shipit-engine/${SHIPIT_VERSION}/template.rb || true
+  -m https://raw.githubusercontent.com/Shopify/shipit-engine/main/template.rb || true
 
 WORKDIR /usr/src/shipit
 
