@@ -10,12 +10,11 @@ set -e
 cat > config/secrets.yml <<EOF
 ${RAILS_ENV:-production}:
   secret_key_base: ${SECRET_KEY_BASE}
-  redis_url: ${REDIS_URL}
+  redis_url: "${REDIS_URL}"
   host: ${SHIPIT_HOST:-shipit.aequify.com}
   github:
     app_id: ${GITHUB_APP_ID:-2083748}
     installation_id: ${GITHUB_INSTALLATION_ID:-89235109}
-    domain: ${GITHUB_DOMAIN:-}
     bot_login: ${GITHUB_BOT_LOGIN:-Aequify-IT-App[bot]}
     webhook_secret: ${WEBHOOK_SECRET}
     private_key: ${PRIVATE_KEY}
