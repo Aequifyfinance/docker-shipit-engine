@@ -6,7 +6,7 @@ bind "tcp://0.0.0.0:3000"
 
 environment ENV.fetch("RAILS_ENV") { "production" }
 
-workers ENV.fetch("WEB_CONCURRENCY") { 2 }
-preload_app!
+workers 0
+preload_app! false
 
 plugin :tmp_restart
