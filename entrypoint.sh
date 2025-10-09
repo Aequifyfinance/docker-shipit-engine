@@ -17,7 +17,8 @@ ${RAILS_ENV:-production}:
     installation_id: ${GITHUB_INSTALLATION_ID:-89235109}
     bot_login: ${GITHUB_BOT_LOGIN:-Aequify-IT-App[bot]}
     webhook_secret: ${WEBHOOK_SECRET}
-    private_key: ${PRIVATE_KEY}
+    private_key: |
+      ${PRIVATE_KEY}
     oauth:
       id: ${OAUTH_ID:-Iv23lilB2oNp3rrTU3Al}
       secret: ${OAUTH_SECRET}
