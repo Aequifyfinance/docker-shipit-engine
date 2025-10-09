@@ -53,7 +53,24 @@ RUN bundle install --jobs 4
 
 # Copy config files (secrets mounted at runtime)
 COPY config/database.yml config/puma.rb config/
-RUN touch config/secrets.yml
+
+# Create a dummy secrets.yml for asset precompilation (will be overwritten at runtime)
+RUN cat > config/secrets.yml <<EOF
+production:
+  secret_key_base: dummy_key_for_asset_compilation
+  redis_url: "${REDIS_URL:-redis://localhost:6379}"
+  host: localhost
+  github:
+    app_id: 1
+    installation_id: 1
+    bot_login: bot
+    webhook_secret: dummy
+    private_key: |
+      dummy
+    oauth:
+      id: dummy
+      secret: dummy
+EOF
 
 # Set Rails production environment variables
 ENV RAILS_ENV=production \
