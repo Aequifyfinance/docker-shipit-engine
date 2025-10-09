@@ -53,6 +53,7 @@ RUN bundle install --jobs 4
 
 # Copy config files (secrets mounted at runtime)
 COPY config/database.yml config/puma.rb config/secrets.yml config/
+COPY config/environments/production.yml config/environments/production.yml
 
 # Set Rails production environment variables
 ENV RAILS_ENV=production \

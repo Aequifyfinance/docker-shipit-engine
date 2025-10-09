@@ -4,7 +4,7 @@ threads threads_count, threads_count
 # Bind to all interfaces on port 3000 (plain HTTP)
 bind "tcp://0.0.0.0:3000"
 
-environment ENV.fetch("RAILS_ENV") { "development" }
+environment ENV.fetch("RAILS_ENV") { "production" }
 
 workers 0
 preload_app! false
