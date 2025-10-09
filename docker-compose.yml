@@ -30,6 +30,7 @@ services:
       WEBHOOK_SECRET: $WEBHOOK_SECRET
       PRIVATE_KEY: $PRIVATE_KEY
       OAUTH_SECRET: $OAUTH_SECRET
+      GITHUB_ACCESS_TOKEN: $GITHUB_ACCESS_TOKEN
     restart: on-failure
     ports:
       - "3000:3000"
@@ -46,5 +47,6 @@ services:
       WEBHOOK_SECRET: $WEBHOOK_SECRET
       PRIVATE_KEY: $PRIVATE_KEY
       OAUTH_SECRET: $OAUTH_SECRET
+      GITHUB_ACCESS_TOKEN: $GITHUB_ACCESS_TOKEN
     restart: on-failure
     command: bundle exec sidekiq -C config/sidekiq.yml
