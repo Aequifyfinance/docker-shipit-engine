@@ -26,7 +26,7 @@ RUN git config --global user.email "saksham@aequify.com"
 RUN git config --global user.name "Saksham Saini"
 
 # Install Ruby gems
-RUN gem install rails -v 8.0 --no-document
+RUN gem install rails -v 7.1.5 --no-document
 RUN gem install minitest --no-document
 
 WORKDIR /usr/src
@@ -35,7 +35,7 @@ WORKDIR /usr/src
 ENV SKIP_BUNDLE=true
 
 # Generate Shipit app without running bundle install
-RUN rails _8.0_ new shipit \
+RUN rails _7.1.5_ new shipit \
   --database=postgresql \
   --skip-action-cable \
   --skip-turbolinks \
